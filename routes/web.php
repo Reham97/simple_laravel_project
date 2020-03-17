@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/about', function () {
+    return view('Pages.about');
+});
+
+Route::get('/services', function () {
+    return view('Pages.services');
+});
+
+// Route::get('/posts/{id}/{author}', function ($id, $author) {
+//     return " id ". $id . '  author  ' . $author ;
+// });
