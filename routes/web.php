@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PagesController@index' );
 Route::get('/about', 'PagesController@about' );
 Route::get('/services', 'PagesController@services' );
+Route::resource('posts','PostsController');
+
+/*
+Route::get('/posts','PostsController@index')->name('posts.index');
+Route::get('/posts/{id}','PostsController@show')->name('posts.show');
+
+*/
 
 // Route::get('/posts/{id}/{author}', function ($id, $author) {
 //     return " id ". $id . '  author  ' . $author ;
