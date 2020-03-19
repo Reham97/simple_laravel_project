@@ -1,5 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-<h1> services</h1>
+<h1> Welcome</h1>
+<h1> {{ $title }}</h1>
 @endsection 
