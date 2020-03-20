@@ -2,6 +2,11 @@
 
 @section('content')
     <h1> List of all Posts</h1>
+    <div class="row">
+       filter :  
+       <a href="/posts?select=2">Even ID </a>|
+       <a href="/posts?select=1">Odd ID </a>|
+    </div>
     <hr>
     <div class="row">
         <div class="col-md-9">
@@ -15,7 +20,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="card-title">
-                                        <h4> {{$post->title}}</h4>
+                                        <h4> {{$post->id}} - {{$post->title}}</h4>
                                     </div>
                                     <div class="card-text">
                                         {{$post->body}}
