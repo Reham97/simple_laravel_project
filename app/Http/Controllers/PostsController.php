@@ -30,7 +30,8 @@ class PostsController extends Controller
         {
             if(request('select') == "2")
             {
-                $posts=DB::table('posts')
+                $user= auth()->user();
+                $posts=$user->posts()
                 ->whereRaw('MOD(id,2) = 0')
                 ->paginate(2)->appends('select',request('select'));
                 $count = Post::count();
@@ -39,7 +40,8 @@ class PostsController extends Controller
             }
             else
             {
-                $posts=DB::table('posts')
+                $user= auth()->user();
+                $posts=$user->posts()
                 ->whereRaw('MOD(id,2) <> 0')
                 ->paginate(2)->appends('select',request('select'));
                 $count = Post::count();
@@ -49,7 +51,8 @@ class PostsController extends Controller
         }
         else
         {
-            $posts = Post::orderBy('id')->paginate(2);
+            $user= auth()->user();
+            $posts=$user->posts()->paginate(2);
             $count = Post::count();
             return view('myPosts.index',compact('posts','count'));
         }

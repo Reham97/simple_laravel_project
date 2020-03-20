@@ -50,7 +50,11 @@
 
     <div class="row">
         <div class="col-md-12 ">
-            {{$posts->links()}}
+            
+            @if(empty($posts->links()))
+            @else
+                {{$posts->links()}}
+            @endif
         </div>
     </div>
     @endsection 
