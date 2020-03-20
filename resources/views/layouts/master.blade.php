@@ -11,7 +11,7 @@
     @include('includes.navbar')
     <div class="container">
     @include('includes.messages')    
-        @yield('content')
+    @yield('content')
     </div>
     <script src="{{asset('js/app.js')}}"></script>
 </body>

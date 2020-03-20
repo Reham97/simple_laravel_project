@@ -32,3 +32,7 @@ Route::delete('/posts/{id}','PostsController@destroy')->name('posts.destroy');
 // Route::get('/posts/{id}/{author}', function ($id, $author) {
 //     return " id ". $id . '  author  ' . $author ;
 // });
+
+Auth::routes();
+
+Route::get('/home', 'PostsController@index')->name('home');
