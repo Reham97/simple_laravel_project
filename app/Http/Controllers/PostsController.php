@@ -50,7 +50,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('myPosts.create');
     }
 
     /**
@@ -61,7 +61,19 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+            'title' =>  'required|max:200',
+            'body' => 'required|max:500'
+        ]);
+
+        $post = new Post() ;
+        $post->title =  $request->title ;
+        $post->body =  $request->body ;
+
+        $post->save();
+
+        return redirect('/posts')->with('status', 'Post was created !');
     }
 
     /**
@@ -85,7 +97,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('myPosts.edit', compact('post'));
     }
 
     /**
@@ -97,7 +110,18 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' =>  'required|max:200',
+            'body' => 'required|max:500'
+        ]);
+
+        $post = Post::find($id) ;
+        $post->title = $request->title;
+        $post->body = $request->body;
+
+        $post->save();
+
+        return redirect('/posts')->with('status', 'Post was updated !');
     }
 
     /**
@@ -108,6 +132,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = POST::find($id) ;
+        $post->delete();
+        return redirect('/posts')->with('status', 'Post was deleted !');
     }
 }
