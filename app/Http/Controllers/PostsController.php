@@ -28,7 +28,7 @@ class PostsController extends Controller
     {
         if(request()->has('select'))
         {
-            if(request()->has('select') === 2)
+            if(request('select') == "2")
             {
                 $posts=DB::table('posts')
                 ->whereRaw('MOD(id,2) = 0')
@@ -40,7 +40,7 @@ class PostsController extends Controller
             else
             {
                 $posts=DB::table('posts')
-                ->whereRaw('MOD(id,2) != 0')
+                ->whereRaw('MOD(id,2) <> 0')
                 ->paginate(2)->appends('select',request('select'));
                 $count = Post::count();
                 $select = "you select even ID";
@@ -76,12 +76,13 @@ class PostsController extends Controller
         $request->validate([
 
             'title' =>  'required|max:200',
-            'body' => 'required|max:500'
-        ]);
+            'body' => 'required|max:500'        ]);
 
         $post = new Post() ;
         $post->title =  $request->title ;
         $post->body =  $request->body ;
+        $post->user_id = auth()->user()->id;
+
 
         $post->save();
 
