@@ -79,16 +79,29 @@ class PostsController extends Controller
         $request->validate([
 
             'title' =>  'required|max:200',
-            'body' => 'required|max:500'        ]);
+            'body' => 'required|max:500',
+            'image' => 'image|mimes:jpeg,bmp,pnd|max:1999'
+           ]);
 
         $post = new Post() ;
         $post->title =  $request->title ;
         $post->body =  $request->body ;
         $post->user_id = auth()->user()->id;
 
+        if($request->hasFile('postImage'))
+        {
+            $file = $request->file('postImage');
+            $ext = $file->getClientOriginalExtension();
+            $filename = 'cover_image'.'_'.time().'.'.$ext;
+            $file->storeAs('public/coverImage',$filename);
+        }
+        else
+        {            
+            $filename = ("default.png");
+        }
 
+        $post->image = $filename;
         $post->save();
-
         return redirect('/posts')->with('status', 'Post was created !');
     }
 
@@ -136,13 +149,23 @@ class PostsController extends Controller
     {
         $request->validate([
             'title' =>  'required|max:200',
-            'body' => 'required|max:500'
+            'body' => 'required|max:500',
+            'image' => 'image|mimes:jpeg,bmp,pnd|max:1999'
         ]);
 
         $post = Post::find($id) ;
         $post->title = $request->title;
         $post->body = $request->body;
 
+
+        if($request->hasFile('postImage'))
+        {
+            $file = $request->file('postImage');
+            $ext = $file->getClientOriginalExtension();
+            $filename = 'cover_image'.'_'.time().'.'.$ext;
+            $file->storeAs('public/coverImage',$filename);
+            $post->image = $filename;
+        }
         $post->save();
 
         return redirect('/posts')->with('status', 'Post was updated !');
